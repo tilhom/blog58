@@ -14,7 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::simplePaginate(3);
+        // dd($posts);
+        return view('frontend.index', compact('posts'));
     }
 
     /**

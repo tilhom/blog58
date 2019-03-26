@@ -4,9 +4,7 @@
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
+Route::get('/', 'PostController@index')->name('post.index');
 Route::get('/post', function () {
     return view('frontend.post');
 });
