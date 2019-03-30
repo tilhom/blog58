@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,6 +16,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::simplePaginate(3);
+        // dd($category);
         // dd($posts);
         return view('frontend.index', compact('posts'));
     }
@@ -48,7 +50,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+
+        // $post = Post::find($id);
+        return view('frontend.show', compact('post'));
     }
 
     /**

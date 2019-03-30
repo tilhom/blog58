@@ -1,6 +1,6 @@
 @extends('frontend.layouts.main')
 @section('css')
- <link href="css/blog-home.css" rel="stylesheet">
+ <link href="{{asset('css/blog-home.css')}}" rel="stylesheet">
 @endsection
 @section('content')
 <h1 class="my-4">Page Heading
@@ -17,11 +17,11 @@
 		<p class="card-text">
 			{{$post->description}}
 		</p>
-		<a href="#" class="btn btn-primary">Read More &rarr;</a>
+		<a href="{{route('post.show',$post->id)}}" class="btn btn-primary">Read More &rarr;</a>
 	</div>
 	<div class="card-footer text-muted">
 		Posted on {{$post->created_at->format('d/m/Y H:i:s')}} by
-		<a href="#">{{$post->user->name}}</a>
+		<a href="#">{{$post->user->name}}</a> in category <a href="#">{{$post->category->name}}</a>
 	</div>
 </div>
 @endforeach
