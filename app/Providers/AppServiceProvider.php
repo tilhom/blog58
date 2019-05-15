@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Category;
 use App\Post;
+use App\Tag;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,7 +31,9 @@ class AppServiceProvider extends ServiceProvider
            foreach ($categories as $category) {
                $category->posts = Post::where(['category_id'=>$category->id])->count();
            }
-           $view->with(compact('categories'));
+           $archives = Post::archives();
+           $tags = Tag::has('posts')->pluck('name');
+           $view->with(compact('categories','archives','tags'));
        });
     }
 }

@@ -143,3 +143,46 @@ $factory->define(App\Category::class, function (Faker $faker) {
             $view->with(compact('categories'));
         });
 ```
+
+
+## Lesson 7
+
+php artisan make:mail Welcome
+
+RegistrationController: 
+\Mail::to($user)->send(new Welcome);
+
+Welcome.php:
+return $this->view('emails.welcome');
+
+
+create new view emails/welcome.blade.php
+
+! h1 WELCOME TO CODECLASS!
+
+mailtrap.io
+
+config/mail.php
+'from': fix address and name
+
+\Mail::to($user)->send(new Welcome($user));
+
+Welcome.php:
+
+public $user
+
+__construct($user)
+{
+    $this->user = $user;
+}
+
+php artisan make:mail WelcomeAgain --markdown="emails.welcome-again"
+
+tinker:
+Mail::to($user = App\User::first())->send(new App\Mail\WelcomeAgain());
+null
+
+php artisan vendor:publish --tag=laravel-mail
+
+
+

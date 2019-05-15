@@ -8,6 +8,10 @@ body {
   padding-top: 54px;
 }
 
+.display-comment .display-comment {
+  margin-left: 3.8rem;
+}
+
 @media (min-width: 992px) {
   body {
     padding-top: 56px;

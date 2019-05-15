@@ -1,32 +1,42 @@
 @extends('frontend.layouts.main')
 @section('css')
- <link href="{{asset('css/blog-home.css')}}" rel="stylesheet">
+<link href="{{asset('css/blog-home.css')}}" rel="stylesheet">
 @endsection
 @section('content')
 <h1 class="my-4">Page Heading
-	<small>Secondary Text</small>
+    <small>Secondary Text</small>
 </h1>
 
 @if(count($posts))
 @foreach($posts as $post)
 <!-- Blog Post -->
 <div class="card mb-4">
-	<img class="card-img-top" src="/storage/images/{{$post->cover_img}}" alt="Card image cap">
-	<div class="card-body">
-		<h2 class="card-title">{{$post->title}}</h2>
-		<p class="card-text">
-			{{$post->description}}
-		</p>
-		<a href="{{route('post.show',$post->id)}}" class="btn btn-primary">Read More &rarr;</a>
-	</div>
-	<div class="card-footer text-muted">
-		Posted on {{$post->created_at->format('d/m/Y H:i:s')}} by
-		<a href="#">{{$post->user->name}}</a> in category <a href="#">{{$post->category->name}}</a>
-	</div>
+    <img class="card-img-top" src="/storage/images/{{$post->cover_img}}" alt="Card image cap">
+    <div class="card-body">
+        <h2 class="card-title">{{$post->title}}</h2>
+        <p class="card-text">
+            {{$post->description}}
+        </p>
+        @if(count($post->tags))
+        <hr>
+        <p>
+            <strong>Tags:</strong>
+            @foreach($post->tags as $tag)
+            <a href="/posts/tags/{{$tag->name}}"><span class="badge badge-info">{{$tag->name}}</span></a>
+            @endforeach
+        </p>
+        @endif
+        <a href="{{route('post.show',$post->id)}}" class="btn btn-primary">Read More &rarr;</a>
+    </div>
+    <div class="card-footer text-muted">
+        Posted on {{$post->created_at->format('d/m/Y H:i:s')}} by
+        <a href="#">{{$post->user->name}}</a> in category <a href="#">{{$post->category->name}}</a> // 
+        <a href="{{route('post.show',$post->id.'#comments')}}">Comments:</a> <strong>{{$post->getCommentsCount()}}</strong>
+    </div>
 </div>
 @endforeach
 @else
-	<h1>No posts yet..</h1>
+<h1>No posts yet..</h1>
 @endif
 
 <!-- Pagination -->
@@ -38,5 +48,7 @@
 		<a class="page-link" href="#">Newer &rarr;</a>
 	</li>
 </ul> -->
-{{$posts->links()}}
+<div class="d-flex justify-content-center mb-3">
+    {{$posts->links()}}
+</div>
 @endsection

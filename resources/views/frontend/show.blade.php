@@ -34,8 +34,23 @@
 	{{$post->content}}
 </p>
 
+<!-- Comments Form -->
+<div class="card my-4" id="comments">
+     <h5 class="card-header">Leave a Comment:</h5>
+     <div class="card-body">
+
+         <form method="post" action="{{ route('comment.add') }}">
+             @csrf
+             <input type="hidden" name="post_id" value="{{ $post->id }}" />
+             <input type="hidden" name="user_id" value="{{ $user_id }}" />
+             <div class="form-group">
+                 <textarea class="form-control" name="content" rows="3"></textarea>
+             </div>
+             <button type="submit" class="btn btn-primary">Submit</button>
+         </form>
+     </div>
+ </div>
 <hr>
 
-<!-- Comments Form -->
-@include('frontend.partials.comment')
+@include('frontend.partials.comment',['comments' => $post->comments])
 @endsection

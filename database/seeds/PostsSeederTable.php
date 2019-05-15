@@ -11,6 +11,6 @@ class PostsSeederTable extends Seeder
      */
     public function run()
     {
-        factory('App\Post', 6)->create();
+        factory('App\Post', 12)->create();
     }
 }

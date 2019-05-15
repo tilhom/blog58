@@ -14,11 +14,22 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $posts = Post::simplePaginate(3);
-        // dd($category);
-        // dd($posts);
+    {       
+        $posts = Post::latest()->filter(request(['month','year']))->paginate(3);              
         return view('frontend.index', compact('posts'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+        // dd($request->all());
+         $result = Post::where('title', 'like', "%{$query}%")->
+        orWhere('description', 'like',"%{$query}%")->
+        orWhere('content', 'like', "%{$query}%")->paginate(2);
+        dd($result, $query);
+
+        //return redirect()->route('rs',$query);
+        return view('frontend.search',compact('result','query'));
     }
 
     /**
@@ -52,9 +63,10 @@ class PostController extends Controller
     {
 
         // $post = Post::find($id);
-        return view('frontend.show', compact('post'));
+        $user_id = auth()->user()?auth()->user()->id:'';
+        return view('frontend.show', compact('post','user_id'));
     }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *

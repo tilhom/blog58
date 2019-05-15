@@ -48,8 +48,14 @@
   @include('frontend.partials.footer')
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script type="text/javascript">
+        $(document).on('click','.reply',function(e){
+            e.preventDefault();
+            $(this).next('form').toggle();
+        })
+    </script>
 
   </body>
 
